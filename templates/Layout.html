@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <title>gohaw</title>
+    <style>
+        header {
+            display: flex;
+            background-color: grey;
+            color: white;
+            align-items: center;
+        }
+
+        header>* {
+            margin-left: 0.5em;
+        }
+
+        header p:hover,
+        h1:hover {
+            background-color: darkgray;
+        }
+
+        .infoList>ul {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 30em;
+        }
+
+        .infoList>ul>li {
+            display: flex;
+
+        }
+
+        .infoList>ul>li>p {
+            padding-left: 0.1em;
+            padding-right: 0.1em;
+        }
+
+        .infoList .count {
+            background-color: hotpink;
+        }
+
+        .infoList .name {
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 hx-get="/" hx-target="main" hx-replace-url="/" hx-swap="outerHTML">gohaw</h1>
+        <input type="text" name="search" id="search">
+        <p hx-get="/types" hx-target="main" hx-replace-url="/types" hx-swap="outerHTML">types</p>
+        <p hx-get="/genres" hx-target="main" hx-replace-url="/genres" hx-swap="outerHTML">genres</p>
+        <p hx-get="/themes" hx-target="main" hx-replace-url="/themes" hx-swap="outerHTML">themes</p>
+        <p hx-get="/studios" hx-target="main" hx-replace-url="/studios" hx-swap="outerHTML">studios</p>
+        <p hx-get="/seasons" hx-target="main" hx-replace-url="/seasons" hx-swap="outerHTML">seasons</p>
+    </header>
+    {{ template "Main" . }}
+    <footer></footer>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+{{ define "Main" }}
+<main id="{{ .Title }}" class="infoList">
+    <h1>Lists, {{ .Title }}</h1>
+    <ul>
+        {{ range .Items }}
+        <li>
+            <p class="count"> {{ .Count }} </p>
+            <p class="name"> {{ .Name }} </p>
+        </li>
+        {{ end }}
+    </ul>
+</main>
+{{ end }}
