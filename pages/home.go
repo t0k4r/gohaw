@@ -1,28 +1,12 @@
 package pages
 
 import (
-	"html/template"
-	"log"
-	"net/http"
+	"github.com/labstack/echo/v4"
 )
 
-func Home() func(http.ResponseWriter, *http.Request) {
-	templ, err := template.ParseFiles("templates/Layout.html", "templates/Home.html")
-	if err != nil {
-		log.Panic(err)
+func Home(c echo.Context) error {
+	if isHx(c.Request()) {
+		return c.Render(200, "Home", nil)
 	}
-	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("content-type", "text/html")
-		if isHx(r) {
-			err := templ.ExecuteTemplate(w, "Main", nil)
-			if err != nil {
-				log.Panic(err)
-			}
-		} else {
-			err := templ.Execute(w, nil)
-			if err != nil {
-				log.Panic(err)
-			}
-		}
-	}
+	return c.Render(200, "pageHome.html", nil)
 }

@@ -1,0 +1,13 @@
+{{ define "FilterList" }}
+<div id="filterList">
+    <h1>{{ .Title }}</h1>
+    <ul>
+        {{ range .Filters }}
+        <li>
+            <p class="filterName"> {{ .Name }} </p>
+            <p class="filterCount"> {{ .Count }} </p>
+        </li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}

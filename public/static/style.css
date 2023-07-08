@@ -1,8 +1,8 @@
 body {
     background-color: black;
     color: white;
-    padding: 0;
     margin: 0;
+    padding: 0;
 }
 
 header {
@@ -15,47 +15,42 @@ header>* {
     margin-left: 0.5em;
 }
 
-header>*:hover {
-    background-color: darkgray;
-}
-
 main {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
-.infoList {
+#filterList {
+    margin: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 0.5em;
     background-color: #1F1F1F;
-    max-width: 50em;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1em;
-    border-radius: 0.5em;
-
+    max-width: 50em;
 }
 
-.infoList>ul {
+#filterList ul {
     display: flex;
     flex-wrap: wrap;
-    max-width: 50em;
+    justify-content: center;
 }
 
-.infoList>ul>li {
+#filterList ul li {
     display: flex;
-
+    margin: 0.2em;
 }
 
-.infoList>ul>li>p {
-    padding-left: 0.1em;
-    padding-right: 0.1em;
-}
-
-.infoList .count {
-    background-color: #404040;
-}
-
-.infoList .name {
+#filterList .filterName {
     background-color: purple;
+    padding: 0.1em;
+}
+
+#filterList .filterCount {
+    background-color: #404040;
+    padding: 0.1em;
+
 }
