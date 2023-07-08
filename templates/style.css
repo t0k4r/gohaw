@@ -1,0 +1,61 @@
+body {
+    background-color: black;
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    background-color: #1F1F1F;
+    align-items: center;
+}
+
+header>* {
+    margin-left: 0.5em;
+}
+
+header>*:hover {
+    background-color: darkgray;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infoList {
+    background-color: #1F1F1F;
+    max-width: 50em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1em;
+    border-radius: 0.5em;
+
+}
+
+.infoList>ul {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 50em;
+}
+
+.infoList>ul>li {
+    display: flex;
+
+}
+
+.infoList>ul>li>p {
+    padding-left: 0.1em;
+    padding-right: 0.1em;
+}
+
+.infoList .count {
+    background-color: #404040;
+}
+
+.infoList .name {
+    background-color: purple;
+}

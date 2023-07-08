@@ -38,7 +38,7 @@ func getTemplInfo(info string) TemplInfo {
 	return templ
 }
 
-func infoList(info TemplInfo) func(http.ResponseWriter, *http.Request) {
+func infoList(info string) func(http.ResponseWriter, *http.Request) {
 	templ, err := template.ParseFiles("templates/Layout.html", "templates/InfoList.html")
 	if err != nil {
 		log.Panic(err)
@@ -46,12 +46,12 @@ func infoList(info TemplInfo) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("content-type", "text/html")
 		if isHx(r) {
-			err := templ.ExecuteTemplate(w, "Main", info)
+			err := templ.ExecuteTemplate(w, "Main", getTemplInfo(info))
 			if err != nil {
 				log.Panic(err)
 			}
 		} else {
-			err := templ.Execute(w, info)
+			err := templ.Execute(w, getTemplInfo(info))
 			if err != nil {
 				log.Panic(err)
 			}

@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"gohaw/pages"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -26,6 +27,18 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 	r.Get("/", pages.Home())
+	r.Get("/style.css", func(w http.ResponseWriter, r *http.Request) {
+		styles, err := os.Open("templates/style.css")
+		if err != nil {
+			panic(err)
+		}
+		buf, err := io.ReadAll(styles)
+		if err != nil {
+			panic(err)
+		}
+		w.Header().Set("content-type", "text/css")
+		w.Write(buf)
+	})
 	r.Get("/genres", pages.Genres())
 	r.Get("/themes", pages.Themes())
 	r.Get("/studios", pages.Studios())
