@@ -1,5 +1,7 @@
 {{ define "Home" }}
 <div id="home">
-    <p>home</p>
+    {{ range . }}
+    {{ template "AnimeThumbnail" .}}
+    {{ end }}
 </div>
 {{ end }}

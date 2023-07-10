@@ -75,7 +75,7 @@ func Seasons(c echo.Context) error {
 		return err
 	}
 	var fl filterList
-	fl.Title = "types"
+	fl.Title = "seasons"
 	for rows.Next() {
 		var f filter
 		err := rows.Scan(&f.Count, &f.Name)

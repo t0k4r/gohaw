@@ -3,6 +3,7 @@ body {
     color: white;
     margin: 0;
     padding: 0;
+
 }
 
 header {
@@ -53,4 +54,24 @@ main {
     background-color: #404040;
     padding: 0.1em;
 
+}
+
+#home {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.animeThumbnail {
+    background-color: #1F1F1F;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5em;
+    margin: 1em;
+    max-width: 10em;
+
+}
+
+.animeThumbnail .animeCover {
+    border-radius: 0.5em;
 }
