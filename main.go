@@ -44,6 +44,7 @@ func main() {
 	e.Use(middleware.Recover())
 
 	e.GET("/", pages.Home)
+	e.GET("/anime/:id", pages.Anime)
 	e.GET("/types", pages.Types)
 	e.GET("/genres", pages.FilterList("genres"))
 	e.GET("/themes", pages.FilterList("themes"))
@@ -54,25 +55,4 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
-	// r := chi.NewRouter()
-	// r.Use(middleware.Logger)
-	// r.Use(middleware.Recoverer)
-	// r.Get("/", pages.Home())
-	// r.Get("/style.css", func(w http.ResponseWriter, r *http.Request) {
-	// 	styles, err := os.Open("templates/style.css")
-	// 	if err != nil {
-	// 		panic(err)
-	// 	}
-	// 	buf, err := io.ReadAll(styles)
-	// 	if err != nil {
-	// 		panic(err)
-	// 	}
-	// 	w.Header().Set("content-type", "text/css")
-	// 	w.Write(buf)
-	// })
-	// r.Get("/genres", pages.Genres())
-	// r.Get("/themes", pages.Themes())
-	// r.Get("/studios", pages.Studios())
-
-	// http.ListenAndServe(":3000", r)
 }
