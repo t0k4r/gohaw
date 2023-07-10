@@ -1,0 +1,13 @@
+{{ define "Anime" }}
+<div id="anime">
+    <div>
+        <img src="{{.Cover}}" alt="{{.Title}}">
+    </div>
+    <div>
+        <a href="{{.MalUrl}}">
+            <h1>{{ .Title }}</h1>
+        </a>
+        <p>{{ .Description }}</p>
+    </div>
+</div>
+{{ end }}

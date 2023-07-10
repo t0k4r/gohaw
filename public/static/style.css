@@ -20,6 +20,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 1em;
 }
 
 #filterList {
@@ -46,7 +47,7 @@ main {
 }
 
 #filterList .filterName {
-    background-color: purple;
+    background-color: #323232;
     padding: 0.1em;
 }
 
@@ -60,10 +61,13 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    background-color: #1F1F1F;
+    border-radius: 0.5em;
+
 }
 
 .animeThumbnail {
-    background-color: #1F1F1F;
+    background-color: #404040;
     display: flex;
     flex-direction: column;
     border-radius: 0.5em;
@@ -74,4 +78,20 @@ main {
 
 .animeThumbnail .animeCover {
     border-radius: 0.5em;
+}
+
+#anime {
+    background-color: #1F1F1F;
+    border-radius: 0.5em;
+    padding: 1em;
+    display: flex;
+}
+
+#anime img {
+    border-radius: 0.5em;
+}
+
+#anime a {
+    text-decoration: none;
+    color: white;
 }
