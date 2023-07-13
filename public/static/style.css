@@ -48,12 +48,22 @@ main {
 
 #filterList .filterName {
     background-color: #323232;
-    padding: 0.1em;
+    padding: 0.1em;  
+    border-bottom-left-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    padding: 0.5em;
+
+
+    
 }
 
 #filterList .filterCount {
     background-color: #404040;
-    padding: 0.1em;
+    padding: 0.1em;    
+    border-bottom-right-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    padding: 0.5em;
+
 
 }
 
