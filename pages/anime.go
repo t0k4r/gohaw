@@ -20,7 +20,7 @@ func Anime(c echo.Context) error {
 		return c.NoContent(400)
 	}
 	row := DB.QueryRow(`
-	select a.id, a.title, a.description, a.mal_url, a.cover_url
+	select a.id, a.title, a.description, a.mal_url, a.cover
 	from animes a
 	where a.id = $1`, id)
 	if row.Err() != nil {

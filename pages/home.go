@@ -14,7 +14,7 @@ type animeThumbnail struct {
 
 func Home(c echo.Context) error {
 	rows, err := DB.Query(`
-	select a.id, a.title, a.cover_url from animes a
+	select a.id, a.title, a.cover from animes a
 	join seasons s on a.season_id = s.id
 	where s.value < $1
 	order by s.value desc

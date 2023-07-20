@@ -15,9 +15,9 @@ type filterList struct {
 func FilterList(title string) func(echo.Context) error {
 	return func(c echo.Context) error {
 		rows, err := DB.Query(`
-		select count(ai.anime_id), i.value  from infos i
+		select count(ai.anime_id), i.info  from infos i
 		join anime_infos ai ON ai.info_id = i.id 
-		where i.type_id = (select it.id  from info_types it where it.name_of = $1)
+		where i.type_id = (select it.id  from info_types it where it.type_of = $1)
 		group by i.id
 		order by count(ai.anime_id) desc`, title)
 		if err != nil {
@@ -42,7 +42,7 @@ func FilterList(title string) func(echo.Context) error {
 
 func Types(c echo.Context) error {
 	rows, err := DB.Query(`
-	select count(a.id), at2.name_of  from  anime_types at2 
+	select count(a.id), at2.type_of  from  anime_types at2 
 	join animes a on a.type_id = at2.id
 	group by at2.id 
 	order by  count(a.id) desc`)
@@ -67,7 +67,7 @@ func Types(c echo.Context) error {
 
 func Seasons(c echo.Context) error {
 	rows, err := DB.Query(`
-	select count(a.id), s.name_of  from seasons s 
+	select count(a.id), s.season  from seasons s 
 	join animes a on s.id = a.season_id 
 	group by s.id 
 	order by s.value desc`)
