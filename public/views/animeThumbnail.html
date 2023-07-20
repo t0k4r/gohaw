@@ -1,5 +1,5 @@
 {{ define "AnimeThumbnail" }}
-<div class="animeThumbnail" hx-get="/anime/{{ .Id }}" hx-target="main" hx-replace-url="/anime/{{.Id}}">
+<div class="animeThumbnail" hx-get="/anime/{{ .Id }}" hx-target="main" hx-push-url="/anime/{{.Id}}">
     <img class="animeCover" src="{{ .Cover }}" alt="{{ .Title }}">
     <p class="animeTitle">{{ .Title }}</p>
 </div>

@@ -35,34 +35,29 @@ main {
     max-width: 50em;
 }
 
-#filterList ul {
+#filterList>ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-#filterList ul li {
+#filterList>ul>li {
     display: flex;
     margin: 0.2em;
 }
 
-#filterList .filterName {
+#filterList .left {
     background-color: #323232;
-    padding: 0.1em;  
     border-bottom-left-radius: 0.5em;
     border-top-left-radius: 0.5em;
-    padding: 0.5em;
-
-
-    
+    padding: 0.2em;
 }
 
-#filterList .filterCount {
+#filterList .right {
     background-color: #404040;
-    padding: 0.1em;    
     border-bottom-right-radius: 0.5em;
     border-top-right-radius: 0.5em;
-    padding: 0.5em;
+    padding: 0.2em;
 
 
 }
@@ -92,9 +87,11 @@ main {
 
 #anime {
     background-color: #1F1F1F;
+
     border-radius: 0.5em;
     padding: 1em;
     display: flex;
+
 }
 
 #anime img {
@@ -104,4 +101,7 @@ main {
 #anime a {
     text-decoration: none;
     color: white;
+}
+#anime .right{
+    padding-left: 1em;
 }

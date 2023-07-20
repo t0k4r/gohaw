@@ -1,11 +1,11 @@
 {{ define "FilterList" }}
 <div id="filterList">
-    <h1>{{ .Title }}</h1>
+    <h2>{{ .Title }}</h2>
     <ul>
         {{ range .Filters }}
         <li>
-            <p class="filterName"> {{ .Name }} </p>
-            <p class="filterCount"> {{ .Count }} </p>
+            <p class="left"> {{ .Name }} </p>
+            <p class="right"> {{ .Count }} </p>
         </li>
         {{ end }}
     </ul>

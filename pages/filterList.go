@@ -1,6 +1,10 @@
 package pages
 
-import "github.com/labstack/echo/v4"
+import (
+	"strings"
+
+	"github.com/labstack/echo/v4"
+)
 
 type filter struct {
 	Name  string
@@ -24,7 +28,7 @@ func FilterList(title string) func(echo.Context) error {
 			return err
 		}
 		var fl filterList
-		fl.Title = title
+		fl.Title = strings.ToUpper(string(title[0])) + title[1:]
 		for rows.Next() {
 			var f filter
 			err := rows.Scan(&f.Count, &f.Name)
@@ -50,7 +54,7 @@ func Types(c echo.Context) error {
 		return err
 	}
 	var fl filterList
-	fl.Title = "types"
+	fl.Title = "Types"
 	for rows.Next() {
 		var f filter
 		err := rows.Scan(&f.Count, &f.Name)
@@ -75,7 +79,7 @@ func Seasons(c echo.Context) error {
 		return err
 	}
 	var fl filterList
-	fl.Title = "seasons"
+	fl.Title = "Seasons"
 	for rows.Next() {
 		var f filter
 		err := rows.Scan(&f.Count, &f.Name)

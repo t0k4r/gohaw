@@ -1,13 +1,25 @@
 {{ define "Anime" }}
 <div id="anime">
-    <div>
+    <div class="left">
         <img src="{{.Cover}}" alt="{{.Title}}">
+         <p>Type: {{ .TypeOf }}</p>
+         <p>Season: {{ .Season }}</p>
+         {{ range .Infos }}
+            <p>{{ .Title }}</p>
+            {{ range .Values }}
+                <p>{{ .Value }}</p>
+            {{ end }}
+         {{ end }}
     </div>
-    <div>
+    <div class="right">
         <a href="{{.MalUrl}}">
             <h1>{{ .Title }}</h1>
         </a>
         <p>{{ .Description }}</p>
+
+        {{range .Episodes}}
+            <p> {{.Title}}</p>
+        {{end}}
     </div>
 </div>
 {{ end }}
