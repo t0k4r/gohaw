@@ -68,6 +68,7 @@ main {
     justify-content: center;
     background-color: #1F1F1F;
     border-radius: 0.5em;
+    max-width: 100em;
 
 }
 
@@ -87,10 +88,10 @@ main {
 
 #anime {
     background-color: #1F1F1F;
-
     border-radius: 0.5em;
     padding: 1em;
     display: flex;
+    max-width: 100em;
 
 }
 
@@ -104,4 +105,37 @@ main {
 }
 #anime .right{
     padding-left: 1em;
+}
+#anime .right li{
+    background-color: #404040;
+    margin: 0.2em;
+}
+#anime h1{
+    margin-left: 1em;
+}
+#anime p{
+    margin: 2em;
+}
+
+#anime .left{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+#anime .left div{
+    padding: 1em;
+}
+#anime .left ul{
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    /* flex-direction: row; */
+    /* justify-content: start; */
+}
+#anime .left li{
+    margin: 0.1em;
+}
+#anime .left p{
+    margin: 0;
 }

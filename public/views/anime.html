@@ -2,24 +2,35 @@
 <div id="anime">
     <div class="left">
         <img src="{{.Cover}}" alt="{{.Title}}">
-         <p>Type: {{ .TypeOf }}</p>
-         <p>Season: {{ .Season }}</p>
-         {{ range .Infos }}
-            <p>{{ .Title }}</p>
-            {{ range .Values }}
-                <p>{{ .Value }}</p>
+        <div>
+            <ul>
+                <p>Type:</p>
+                <li>{{ .TypeOf }}</li>
+            </ul>
+            <ul>
+                <p>Season:</p>
+                <li>{{ .Season }}</li>
+            </ul>
+            {{ range .Infos }}
+            <ul>
+                <p>{{ .Title }}:</p>
+                {{ range .Values }}
+                    <li> {{ .Value }}, </li>
+                {{ end }}
+            </ul>
             {{ end }}
-         {{ end }}
+        </div>
     </div>
     <div class="right">
         <a href="{{.MalUrl}}">
             <h1>{{ .Title }}</h1>
         </a>
         <p>{{ .Description }}</p>
-
+        <ol>
         {{range .Episodes}}
-            <p> {{.Title}}</p>
+            <li> {{.Title}}</li>
         {{end}}
+        </ol>
     </div>
 </div>
 {{ end }}

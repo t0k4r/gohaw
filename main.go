@@ -39,7 +39,6 @@ func main() {
 
 	e := echo.New()
 	e.Renderer = t
-
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 

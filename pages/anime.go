@@ -3,6 +3,7 @@ package pages
 import (
 	"fmt"
 	"strconv"
+	"strings"
 
 	"github.com/labstack/echo/v4"
 	"golang.org/x/sync/errgroup"
@@ -81,7 +82,9 @@ func appendInfo(a *anime, infoType string) func() error {
 
 func getInfo(animeId int, infoType string) (info, error) {
 	var inf info
-	inf.Title = infoType
+
+	inf.Title = strings.ToUpper(string(infoType[0])) + infoType[1:]
+
 	rows, err := DB.Query(`
 	select it.id, i.id ,i.info from anime_infos ai
 	join infos i on i.id = ai.info_id
