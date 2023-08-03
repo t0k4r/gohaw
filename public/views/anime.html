@@ -22,15 +22,22 @@
         </div>
     </div>
     <div class="right">
-        <a href="{{.MalUrl}}">
-            <h1>{{ .Title }}</h1>
-        </a>
+        <div class="title_and_desc">
+            <a href="{{.MalUrl}}">
+                <h1>{{ .Title }}</h1>
+            </a>
         <p>{{ .Description }}</p>
-        <ol>
-        {{range .Episodes}}
-            <li> {{.Title}}</li>
-        {{end}}
-        </ol>
+        </div>
+        <div class="episodes">
+            <details>
+                <summary>Episodes:</summary>
+                    <ol>
+                        {{range .Episodes}}
+                            <li> {{.Title}}</li>
+                        {{end}}
+                    </ol>
+            </details>
+        </div>
     </div>
 </div>
 {{ end }}

@@ -1,7 +1,6 @@
 package pages
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 
@@ -59,7 +58,6 @@ func Anime(c echo.Context) error {
 	g.Go(appendInfo(&a, "producers"))
 	g.Go(appendEpisodes(&a))
 	err = g.Wait()
-	fmt.Println(a)
 	if err != nil {
 		return err
 	}

@@ -16,6 +16,10 @@ header>* {
     margin-left: 0.5em;
 }
 
+header>input{
+    border-radius: 0.5em;
+}
+
 main {
     display: flex;
     align-items: center;
@@ -106,7 +110,7 @@ main {
 #anime .right{
     margin-left: 1em;
     padding-left: 1em;
-    background-color: #1F1F1F;
+    /* background-color: #1F1F1F; */
     border-radius: 0.5em;
 
 
@@ -136,7 +140,7 @@ main {
     padding: 0;
     margin-bottom: 0.5em;
 
-    /* flex-direction: row; */
+    /* flex-direction: row; *:/
     /* justify-content: start; */
 }
 /* #anime .left li{
@@ -156,4 +160,21 @@ main {
     display: flex;
     flex-direction: column;
     padding: 1em;
+}
+
+.title_and_desc{
+    background-color: #1F1F1F;
+    margin-bottom: 1em;
+    border-radius: 0.5em;
+
+    padding: 1em;
+}
+
+.episodes{
+    background-color: #1F1F1F;
+    /* margin: 1em; */
+    padding: 1em;
+    border-radius: 0.5em;
+
+
 }

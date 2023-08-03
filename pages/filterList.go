@@ -1,12 +1,11 @@
 package pages
 
 import (
-	"strings"
-
 	"github.com/labstack/echo/v4"
 )
 
 type filter struct {
+	Id    int
 	Name  string
 	Count int
 }
@@ -19,7 +18,7 @@ type filterList struct {
 func FilterList(title string) func(echo.Context) error {
 	return func(c echo.Context) error {
 		rows, err := DB.Query(`
-		select count(ai.anime_id), i.info  from infos i
+		select count(ai.anime_id), i.info, i.id  from infos i
 		join anime_infos ai ON ai.info_id = i.id 
 		where i.type_id = (select it.id  from info_types it where it.type_of = $1)
 		group by i.id
@@ -28,10 +27,11 @@ func FilterList(title string) func(echo.Context) error {
 			return err
 		}
 		var fl filterList
-		fl.Title = strings.ToUpper(string(title[0])) + title[1:]
+		fl.Title = title
+		// fl.Title = strings.ToUpper(string(title[0])) + title[1:]
 		for rows.Next() {
 			var f filter
-			err := rows.Scan(&f.Count, &f.Name)
+			err := rows.Scan(&f.Count, &f.Name, &f.Id)
 			if err != nil {
 				return err
 			}
