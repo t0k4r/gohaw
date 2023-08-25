@@ -1,35 +1,17 @@
 package pages
 
 import (
+	"gohaw/db"
 	"strconv"
-	"strings"
 
 	"github.com/labstack/echo/v4"
 	"golang.org/x/sync/errgroup"
 )
 
-type info struct {
-	Id     int
-	Title  string
-	Values []infoVal
-}
-type infoVal struct {
-	Id    int
-	Value string
-}
-
 type anime struct {
-	Id          int
-	Title       string
-	Description string
-	MalUrl      string
-	Cover       string
-	TypeOfId    *int
-	TypeOf      *string
-	SeasonId    *int
-	Season      *string
-	Infos       []info
-	Episodes    []episode
+	db.Anime
+	Infos    []db.Infos
+	Episodes []db.Episode
 }
 
 func Anime(c echo.Context) error {
@@ -37,19 +19,16 @@ func Anime(c echo.Context) error {
 	if err != nil {
 		return c.NoContent(400)
 	}
-	row := DB.QueryRow(`
-	select a.id, a.title, a.description, a.mal_url, a.cover, t.id, t.type_of, s.id, s.season from animes a
-	left join seasons s on s.id = a.season_id
-	left join anime_types t on t.id = a.type_id
-	where a.id = $1`, id)
-	if row.Err() != nil {
-		return row.Err()
-	}
 	var a anime
-	err = row.Scan(&a.Id, &a.Title, &a.Description, &a.MalUrl, &a.Cover, &a.TypeOfId, &a.TypeOf, &a.SeasonId, &a.Season)
+	dba, err := db.AnimeFromId(id)
+	if dba == nil {
+		return c.NoContent(400)
+	}
 	if err != nil {
 		return err
 	}
+	a.Anime = *dba
+
 	g := new(errgroup.Group)
 	g.Go(appendInfo(&a, "genres"))
 	g.Go(appendInfo(&a, "themes"))
@@ -69,36 +48,21 @@ func Anime(c echo.Context) error {
 
 func appendInfo(a *anime, infoType string) func() error {
 	return func() error {
-		inf, err := getInfo(a.Id, infoType)
+		inf, err := db.InfosOfTypeFromAnimeId(a.Id, infoType)
 		if err != nil {
 			return err
 		}
-		a.Infos = append(a.Infos, inf)
+		a.Infos = append(a.Infos, *inf)
 		return nil
 	}
 }
-
-func getInfo(animeId int, infoType string) (info, error) {
-	var inf info
-
-	inf.Title = strings.ToUpper(string(infoType[0])) + infoType[1:]
-
-	rows, err := DB.Query(`
-	select it.id, i.id ,i.info from anime_infos ai
-	join infos i on i.id = ai.info_id
-	join info_types it on it.id = i.type_id
-	where ai.anime_id = $1 and it.type_of = $2
-	`, animeId, infoType)
-	if err != nil {
-		return inf, err
-	}
-	for rows.Next() {
-		var i infoVal
-		err = rows.Scan(&inf.Id, &i.Id, &i.Value)
+func appendEpisodes(a *anime) func() error {
+	return func() error {
+		episodes, err := db.EpisodesFromAnimeId(a.Id)
 		if err != nil {
-			return inf, err
+			return err
 		}
-		inf.Values = append(inf.Values, i)
+		a.Episodes = episodes
+		return nil
 	}
-	return inf, nil
 }

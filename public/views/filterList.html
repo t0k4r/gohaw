@@ -4,7 +4,7 @@
     {{ $title := .Title}}
     <ul>
         {{ range .Filters }}
-        <li hx-get="/{{$title}}/{{ .Id}}" hx-target="main" hx-push-url="/{{$title}}/{{ .Id}}">
+        <li hx-get="/{{$title}}/{{.Id}}" hx-target="main" hx-push-url="/{{$title}}/{{.Id}}">
             <p class="left"> {{ .Name }} </p>
             <p class="right"> {{ .Count }} </p>
         </li>

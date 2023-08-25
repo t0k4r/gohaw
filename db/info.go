@@ -1,7 +1,5 @@
 package db
 
-import "database/sql"
-
 type Infos struct {
 	TypeId    int
 	TypeTitle string
@@ -13,7 +11,7 @@ type Info struct {
 	Value string
 }
 
-func InfosOfTypeByAnimeId(DB *sql.DB, animeId int, typeOf string) (*Infos, error) {
+func InfosOfTypeFromAnimeId(animeId int, typeOf string) (*Infos, error) {
 	rows, err := DB.Query(`
 	select it.id, i.id ,i.info from anime_infos ai
 	join infos i on i.id = ai.info_id
@@ -34,16 +32,4 @@ func InfosOfTypeByAnimeId(DB *sql.DB, animeId int, typeOf string) (*Infos, error
 		inf.Values = append(inf.Values, i)
 	}
 	return &inf, nil
-}
-
-func InfosAllByAnimeId(DB *sql.DB, animeId int) ([]Infos, error) {
-	rows, err := DB.Query(`
-	select it_type_of, it.id, i.id ,i.info from anime_infos ai
-	join infos i on i.id = ai.info_id
-	join info_types it on it.id = i.type_id
-	where ai.anime_id = $1
-	`, animeId)
-	_, _ = rows, err
-
-	return nil, nil
 }

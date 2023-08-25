@@ -2,6 +2,8 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
+	"gohaw/db"
 	"gohaw/pages"
 	"html/template"
 	"io"
@@ -32,6 +34,15 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
+	db.DB = pages.DB
+
+	a, err := db.AnimeFromId(1)
+	if err != nil {
+		log.Panic(err)
+	}
+	// for _, i := range i {
+	fmt.Printf("%+v", a)
+	// }
 
 	t := &Template{
 		templates: template.Must(template.ParseGlob("public/views/*.html")),
