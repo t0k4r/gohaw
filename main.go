@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"gohaw/db"
 	"gohaw/pages"
 	"html/template"
@@ -30,19 +29,10 @@ func main() {
 		log.Println(err)
 	}
 
-	pages.DB, err = sql.Open("postgres", os.Getenv("PG_CONN"))
+	db.DB, err = sql.Open("postgres", os.Getenv("PG_CONN"))
 	if err != nil {
 		log.Panic(err)
 	}
-	db.DB = pages.DB
-
-	a, err := db.AnimeFromId(1)
-	if err != nil {
-		log.Panic(err)
-	}
-	// for _, i := range i {
-	fmt.Printf("%+v", a)
-	// }
 
 	t := &Template{
 		templates: template.Must(template.ParseGlob("public/views/*.html")),
@@ -55,14 +45,14 @@ func main() {
 
 	e.GET("/", pages.Home)
 	e.GET("/anime/:id", pages.Anime)
-	e.GET("/types", pages.Types)
+	e.GET("/types", pages.TypesList)
 	e.GET("/genres", pages.FilterList("genres"))
 	e.GET("/genres/:id", pages.Filtered("genres"))
 	e.GET("/themes", pages.FilterList("themes"))
 	e.GET("/themes/:id", pages.Filtered("themes"))
 	e.GET("/studios", pages.FilterList("studios"))
 	e.GET("/studios/:id", pages.Filtered("studios"))
-	e.GET("/seasons", pages.Seasons)
+	e.GET("/seasons", pages.SeasonsList)
 	e.StaticFS("/", os.DirFS("public/static"))
 	err = e.Start(":3000")
 	if err != nil {

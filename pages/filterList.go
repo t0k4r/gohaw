@@ -1,41 +1,16 @@
 package pages
 
 import (
+	"gohaw/db"
+
 	"github.com/labstack/echo/v4"
 )
 
-type filter struct {
-	Id    int
-	Name  string
-	Count int
-}
-
-type filterList struct {
-	Title   string
-	Filters []filter
-}
-
 func FilterList(title string) func(echo.Context) error {
 	return func(c echo.Context) error {
-		rows, err := DB.Query(`
-		select count(ai.anime_id), i.info, i.id  from infos i
-		join anime_infos ai ON ai.info_id = i.id 
-		where i.type_id = (select it.id  from info_types it where it.type_of = $1)
-		group by i.id
-		order by count(ai.anime_id) desc`, title)
+		fl, err := db.Filtes(title)
 		if err != nil {
 			return err
-		}
-		var fl filterList
-		fl.Title = title
-		// fl.Title = strings.ToUpper(string(title[0])) + title[1:]
-		for rows.Next() {
-			var f filter
-			err := rows.Scan(&f.Count, &f.Name, &f.Id)
-			if err != nil {
-				return err
-			}
-			fl.Filters = append(fl.Filters, f)
 		}
 		if isHx(c.Request()) {
 			return c.Render(200, "FilterList", fl)
@@ -44,24 +19,10 @@ func FilterList(title string) func(echo.Context) error {
 	}
 }
 
-func Types(c echo.Context) error {
-	rows, err := DB.Query(`
-	select count(a.id), at2.type_of  from  anime_types at2 
-	join animes a on a.type_id = at2.id
-	group by at2.id 
-	order by  count(a.id) desc`)
+func TypesList(c echo.Context) error {
+	fl, err := db.Types()
 	if err != nil {
 		return err
-	}
-	var fl filterList
-	fl.Title = "Types"
-	for rows.Next() {
-		var f filter
-		err := rows.Scan(&f.Count, &f.Name)
-		if err != nil {
-			return err
-		}
-		fl.Filters = append(fl.Filters, f)
 	}
 	if isHx(c.Request()) {
 		return c.Render(200, "FilterList", fl)
@@ -69,24 +30,10 @@ func Types(c echo.Context) error {
 	return c.Render(200, "pageFliterList.html", fl)
 }
 
-func Seasons(c echo.Context) error {
-	rows, err := DB.Query(`
-	select count(a.id), s.season  from seasons s 
-	join animes a on s.id = a.season_id 
-	group by s.id 
-	order by s.value desc`)
+func SeasonsList(c echo.Context) error {
+	fl, err := db.Seasons()
 	if err != nil {
 		return err
-	}
-	var fl filterList
-	fl.Title = "Seasons"
-	for rows.Next() {
-		var f filter
-		err := rows.Scan(&f.Count, &f.Name)
-		if err != nil {
-			return err
-		}
-		fl.Filters = append(fl.Filters, f)
 	}
 	if isHx(c.Request()) {
 		return c.Render(200, "FilterList", fl)

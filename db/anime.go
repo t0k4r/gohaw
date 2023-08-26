@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"time"
 )
 
 type Anime struct {
@@ -32,4 +33,25 @@ func AnimeFromId(id int) (*Anime, error) {
 		return &animes[0], err
 	}
 	return nil, err
+}
+
+func AnimesNow(limit int) ([]Anime, error) {
+	animes, err := query[Anime](`
+	select a.id, a.title, a.description, a.mal_url, a.cover, t.id, t.type_of, s.id, s.season from animes a
+	left join seasons s on s.id = a.season_id
+	left join anime_types t on t.id = a.type_id
+	where s.value < $1
+	order by s.value desc
+	limit $2`, time.Now(), limit)
+	return animes, err
+}
+
+func AnimesFromInfoId(infoId int) ([]Anime, error) {
+	animes, err := query[Anime](`
+	select a.id, a.title, a.description, a.mal_url, a.cover, t.id, t.type_of, s.id, s.season from animes a
+	left join anime_infos ai on ai.anime_id = a.id
+	left join seasons s on s.id = a.season_id
+	left join anime_types t on t.id = a.type_id
+	where ai.info_id = $1`, infoId)
+	return animes, err
 }
