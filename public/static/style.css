@@ -1,3 +1,8 @@
+/* Layout */
+body *{
+    padding: 0;
+    margin: 0;
+}
 body {
     background-color: black;
     color: white;
@@ -5,21 +10,6 @@ body {
     padding: 0;
 
 }
-
-header {
-    display: flex;
-    background-color: #1F1F1F;
-    align-items: center;
-}
-
-header>* {
-    margin-left: 0.5em;
-}
-
-header>input{
-    border-radius: 0.5em;
-}
-
 main {
     display: flex;
     align-items: center;
@@ -27,45 +17,72 @@ main {
     margin: 1em;
 }
 
+
+
+/* Header */
+header {
+    display: flex;
+    background-color: #1F1F1F;
+    align-items: center;
+}
+header * {
+    text-transform: capitalize;
+    margin: 0;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+}
+header p{
+    padding: 0.75em;
+}
+header p:hover{
+    background-color: #323232;
+}
+header input{
+    border-radius: 0.5em;
+}
+
+
+
+/* FilterList */
 #filterList {
-    margin: 1em;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding: 1em;
     border-radius: 0.5em;
     background-color: #1F1F1F;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 50em;
+    text-align: center;
 }
-
-#filterList>ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+#filterList h2 {
+    text-transform: capitalize;
+    margin: 0.5em;
 }
-
-#filterList>ul>li {
-    display: flex;
-    margin: 0.2em;
+#filterList ul {
+    columns: 7;
 }
-
-#filterList .left {
+#filterList li {
+    margin-top: 0;
+    display: flex;
+    margin-bottom: 0.5em;
+}
+#filterList p.left {
     background-color: #323232;
-    border-bottom-left-radius: 0.5em;
-    border-top-left-radius: 0.5em;
-    padding: 0.2em;
+    border-bottom-left-radius: 0.2em;
+    border-top-left-radius: 0.2em;
+    padding: 0.1em;
 }
-
-#filterList .right {
+#filterList p.right {
     background-color: #404040;
-    border-bottom-right-radius: 0.5em;
-    border-top-right-radius: 0.5em;
-    padding: 0.2em;
-
-
+    border-bottom-right-radius: 0.2em;
+    border-top-right-radius: 0.2em;
+    padding: 0.1em;
 }
 
+
+
+/* Anime */
+#anime .top{
+    display: flex;
+}
+
+/* 
 #home {
     display: flex;
     flex-wrap: wrap;
@@ -90,8 +107,12 @@ main {
     border-radius: 0.5em;
 }
 
+
+
+
+
 #anime {
-    /* background-color: #1F1F1F; */
+
     border-radius: 0.5em;
     padding: 1em;
     display: flex;
@@ -110,7 +131,6 @@ main {
 #anime .right{
     margin-left: 1em;
     padding-left: 1em;
-    /* background-color: #1F1F1F; */
     border-radius: 0.5em;
 
 
@@ -139,14 +159,8 @@ main {
     list-style: none;
     padding: 0;
     margin-bottom: 0.5em;
-
-    /* flex-direction: row; *:/
-    /* justify-content: start; */
 }
-/* #anime .left li{
-    /* margin-left: 0.1em; 
-    /* margin: 0.1em; 
-} */
+
 #anime .left p{
     margin: 0;
 }
@@ -172,9 +186,6 @@ main {
 
 .episodes{
     background-color: #1F1F1F;
-    /* margin: 1em; */
     padding: 1em;
     border-radius: 0.5em;
-
-
-}
+} */

@@ -1,6 +1,39 @@
 {{ define "Anime" }}
 <div id="anime">
-    <div class="left">
+    <div class="top">
+        <img src="{{.Cover}}" alt="{{.Title}}">
+        <ul>
+            {{ if .TypeOf }}
+            <li>
+                <ul>
+                    <p>type:</p>
+                    <li>{{ .TypeOf }}</li>
+                </ul>
+            </li>
+            {{ end }}
+            {{ if .Season }}
+            <li>
+                <ul>
+                    <p>Season:</p>
+                    <li>{{ .Season }}</li>
+                </ul>
+            </li>
+            {{ end }}
+            {{ range .Infos }}
+            {{ if .Values }}
+            <li>
+                <ul>
+                    <p>{{ .TypeTitle }}:</p>
+                    {{ range .Values }}
+                    <li> {{ .Value }} </li>
+                    {{ end }}
+                </ul>
+            </li>
+            {{ end }}
+            {{ end }}
+        </ul>
+    </div>
+    <!-- <div class="left">
         <img src="{{.Cover}}" alt="{{.Title}}">
         <div class="infos">
             <ul>
@@ -38,6 +71,6 @@
                     </ol>
             </details>
         </div>
-    </div>
+    </div> -->
 </div>
 {{ end }}
