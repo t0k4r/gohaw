@@ -1,18 +1,11 @@
 package pages
 
-import (
-	"gohaw/db"
+import "net/http"
 
-	"github.com/labstack/echo/v4"
-)
-
-func Home(c echo.Context) error {
-	animes, err := db.AnimesNow(20)
-	if err != nil {
-		return err
+func Home(w http.ResponseWriter, r *http.Request) {
+	if isHx(r) {
+		render(w, "Nav", nil)
+	} else {
+		render(w, "pageHome.go.html", nil)
 	}
-	if isHx(c.Request()) {
-		return c.Render(200, "Home", animes)
-	}
-	return c.Render(200, "pageHome.html", animes)
 }

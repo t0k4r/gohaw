@@ -1,0 +1,47 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: black;
+    color: white;
+}
+
+
+
+
+/* Header */
+header {
+    background-color: #1F1F1F;
+    display: flex;
+    align-items: center;
+    height: 4em;
+}
+
+header ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+}
+
+header li {
+    padding: 1em;
+}
+
+header li:hover {
+    background-color: #323232;
+
+}
+
+/* header li,
+header h1,
+header form {
+    /* height: 100%; 
+    /* margin-left: 0.5em; 
+}
+header li {
+    /* height: 100%; 
+    /* padding: 1em; 
+}
+header li:hover {
+    background-color: #323232;
+} */
