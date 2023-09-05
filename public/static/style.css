@@ -1,8 +1,9 @@
 /* Layout */
-body *{
+body * {
     padding: 0;
     margin: 0;
 }
+
 body {
     background-color: black;
     color: white;
@@ -10,6 +11,7 @@ body {
     padding: 0;
 
 }
+
 main {
     display: flex;
     align-items: center;
@@ -25,19 +27,23 @@ header {
     background-color: #1F1F1F;
     align-items: center;
 }
+
 header * {
     text-transform: capitalize;
     margin: 0;
     padding-left: 0.25em;
     padding-right: 0.25em;
 }
-header p{
+
+header p {
     padding: 0.75em;
 }
-header p:hover{
+
+header p:hover {
     background-color: #323232;
 }
-header input{
+
+header input {
     border-radius: 0.5em;
 }
 
@@ -50,24 +56,29 @@ header input{
     background-color: #1F1F1F;
     text-align: center;
 }
+
 #filterList h2 {
     text-transform: capitalize;
     margin: 0.5em;
 }
+
 #filterList ul {
     columns: 7;
 }
+
 #filterList li {
     margin-top: 0;
     display: flex;
     margin-bottom: 0.5em;
 }
+
 #filterList p.left {
     background-color: #323232;
     border-bottom-left-radius: 0.2em;
     border-top-left-radius: 0.2em;
     padding: 0.1em;
 }
+
 #filterList p.right {
     background-color: #404040;
     border-bottom-right-radius: 0.2em;
@@ -78,7 +89,7 @@ header input{
 
 
 /* Anime */
-#anime .top{
+#anime .top {
     display: flex;
 }
 
