@@ -23,7 +23,6 @@ func Filtes(title string) (*Filters, error) {
 	}
 	var fl Filters
 	fl.Title = title
-	// fl.Title = strings.ToUpper(string(title[0])) + title[1:]
 	for rows.Next() {
 		var f Filter
 		err := rows.Scan(&f.Count, &f.Name, &f.Id)
@@ -45,7 +44,7 @@ func Types() (*Filters, error) {
 		return nil, err
 	}
 	var fl Filters
-	fl.Title = "Types"
+	fl.Title = "types"
 	for rows.Next() {
 		var f Filter
 		err := rows.Scan(&f.Count, &f.Name)
@@ -67,7 +66,7 @@ func Seasons() (*Filters, error) {
 		return nil, err
 	}
 	var fl Filters
-	fl.Title = "Seasons"
+	fl.Title = "seasons"
 	for rows.Next() {
 		var f Filter
 		err := rows.Scan(&f.Count, &f.Name)

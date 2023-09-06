@@ -39,6 +39,11 @@ func main() {
 
 	r.Get("/", pages.Home)
 	r.Handle("/*", http.FileServer(http.FS(static.Files)))
+	r.Get("/types", pages.Filters("types"))
+	r.Get("/themes", pages.Filters("themes"))
+	r.Get("/genres", pages.Filters("genres"))
+	r.Get("/studios", pages.Filters("studios"))
+	r.Get("/seasons", pages.Filters("seasons"))
 
 	port := ":3000"
 	log.Printf("Running on %v\n", port)
