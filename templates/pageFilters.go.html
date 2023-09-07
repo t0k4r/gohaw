@@ -12,7 +12,20 @@
 <body>
     {{ template "Nav" }}
     <main>
-        {{template "Filters" .}}
+        {{ block "Filters" . }}
+        <div id="filters">
+            <h1>{{ .Title }}</h1>
+            {{ $title := .Title }}
+            <ul>
+                {{ range .Filters }}
+                <li hx-get="/{{$title}}/{{.Id}}" hx-target="main" hx-push-url="true">
+                    <p>{{ .Name }}</p>
+                    <p>{{ .Count }}</p>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+        {{ end }}
     </main>
 </body>
 
