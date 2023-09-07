@@ -2,6 +2,7 @@ package pages
 
 import (
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -18,4 +19,9 @@ func render(w http.ResponseWriter, name string, data any) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func fail(w http.ResponseWriter, err error) {
+	http.Error(w, err.Error(), http.StatusInternalServerError)
+	log.Panic(err)
 }

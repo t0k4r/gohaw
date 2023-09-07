@@ -1,9 +1,10 @@
 {{ define "Filters" }}
 <div id="filters">
     <h1>{{ .Title }}</h1>
+    {{ $title := .Title }}
     <ul>
         {{ range .Filters }}
-        <li>
+        <li hx-get="/{{$title}}/{{.Id}}" hx-target="main" hx-push-url="true">
             <p>{{ .Name }}</p>
             <p>{{ .Count }}</p>
         </li>
