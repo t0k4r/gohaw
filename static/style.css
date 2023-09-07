@@ -80,7 +80,8 @@ nav {
     ul {
         display: grid;
         justify-items: stretch;
-        grid-template-columns: repeat(6, 1fr);
+        /* grid-auto-columns: auto; */
+        grid-template-columns: repeat(auto-fit, minmax(15 em, 1fr));
         list-style-type: none;
 
     }
