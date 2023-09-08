@@ -14,7 +14,22 @@
     <main>
         {{ block "Anime" . }}
         <div id="anime">
-            {{ .Title }}
+            <img src="{{.Cover}}" alt="{{.Title}}">
+            <h2>{{ .Title }}</h2>
+            <p>{{ .Description }}</p>
+            {{ if .Episodes}}
+            <ol>
+                <h3>Episodes</h3>
+                {{ range .Episodes }}
+                <li>
+                    <p>{{ .Title }}</p>
+                    {{ if .AltTitle }}
+                    <p>{{ .AltTitle }}</p>
+                    {{ end }}
+                </li>
+                {{ end }}
+            </ol>
+            {{ end }}
         </div>
         {{ end }}
     </main>
