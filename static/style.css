@@ -114,6 +114,35 @@ nav {
 }
 
 
+/* Filter */
+#filter {
+    background-color: var(--grayest);
+    padding: 1em;
+    margin: 1em;
+    border-radius: 0.4em;
+
+    ul {
+        list-style-type: none;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
+
+    }
+
+    li {
+        display: flex;
+        margin: 0.5em;
+        flex-direction: column;
+        background-color: var(--gray);
+        border-radius: 0.4em;
+
+    }
+
+    img {
+        border-radius: 0.4em;
+
+    }
+
+}
 
 /* #types {
     display: flex;

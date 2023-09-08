@@ -12,16 +12,9 @@
 <body>
     {{ template "Nav" }}
     <main>
-        {{ block "Filter" . }}
-        <div id="filter">
-            <ul>
-                {{ range . }}
-                <li hx-get="/anime/{{.Id}}" hx-target="main" hx-push-url="true">
-                    <img src="{{.Cover}}" alt="{{.Title}}">
-                    <p>{{ .Title }}</p>
-                </li>
-                {{ end }}
-            </ul>
+        {{ block "Anime" . }}
+        <div id="anime">
+            {{ .Title }}
         </div>
         {{ end }}
     </main>

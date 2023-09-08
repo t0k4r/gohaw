@@ -49,7 +49,7 @@ func main() {
 	r.Get("/studios/{id}", pages.Filter("studios"))
 	r.Get("/seasons", pages.Filters("seasons"))
 	r.Get("/seasons/{id}", pages.Filter("seasons"))
-
+	r.Get("/anime/{id}", pages.Anime)
 	port := ":3000"
 	log.Printf("Running on %v\n", port)
 	log.Panic(http.ListenAndServe(port, r))
