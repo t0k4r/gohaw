@@ -2,17 +2,17 @@ package pages
 
 import (
 	"gohaw/db"
-
-	"github.com/labstack/echo/v4"
+	"net/http"
 )
 
-func Home(c echo.Context) error {
-	animes, err := db.AnimesNow(20)
+func Home(w http.ResponseWriter, r *http.Request) {
+	animes, err := db.AnimesNow(50)
 	if err != nil {
-		return err
+		fail(w, err)
 	}
-	if isHx(c.Request()) {
-		return c.Render(200, "Home", animes)
+	if isHx(r) {
+		render(w, "Filter", animes)
+	} else {
+		render(w, "pageHome.go.html", animes)
 	}
-	return c.Render(200, "pageHome.html", animes)
 }

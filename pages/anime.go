@@ -2,67 +2,37 @@ package pages
 
 import (
 	"gohaw/db"
+	"net/http"
 	"strconv"
 
-	"github.com/labstack/echo/v4"
-	"golang.org/x/sync/errgroup"
+	"github.com/go-chi/chi/v5"
 )
 
-type anime struct {
-	db.Anime
-	Infos    []db.Infos
+type pageAnime struct {
+	*db.Anime
 	Episodes []db.Episode
 }
 
-func Anime(c echo.Context) error {
-	id, err := strconv.Atoi(c.Param("id"))
+func Anime(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
-		return c.NoContent(400)
+		fail(w, err)
+		return
 	}
-	var a anime
-	dba, err := db.AnimeFromId(id)
-	if dba == nil {
-		return c.NoContent(400)
-	}
+	anime, err := db.AnimeFromId(id)
 	if err != nil {
-		return err
+		fail(w, err)
+		return
 	}
-	a.Anime = *dba
-
-	g := new(errgroup.Group)
-	g.Go(appendInfo(&a, "genres"))
-	g.Go(appendInfo(&a, "themes"))
-	g.Go(appendInfo(&a, "demographics"))
-	g.Go(appendInfo(&a, "studios"))
-	g.Go(appendInfo(&a, "producers"))
-	g.Go(appendEpisodes(&a))
-	err = g.Wait()
+	episodes, err := db.EpisodesFromAnimeId(id)
 	if err != nil {
-		return err
+		fail(w, err)
+		return
 	}
-	if isHx(c.Request()) {
-		return c.Render(200, "Anime", a)
-	}
-	return c.Render(200, "pageAnime.html", a)
-}
-
-func appendInfo(a *anime, infoType string) func() error {
-	return func() error {
-		inf, err := db.InfosOfTypeFromAnimeId(a.Id, infoType)
-		if err != nil {
-			return err
-		}
-		a.Infos = append(a.Infos, *inf)
-		return nil
-	}
-}
-func appendEpisodes(a *anime) func() error {
-	return func() error {
-		episodes, err := db.EpisodesFromAnimeId(a.Id)
-		if err != nil {
-			return err
-		}
-		a.Episodes = episodes
-		return nil
+	page := pageAnime{Anime: anime, Episodes: episodes}
+	if isHx(r) {
+		render(w, "Anime", page)
+	} else {
+		render(w, "pageAnime.go.html", page)
 	}
 }

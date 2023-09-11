@@ -23,7 +23,6 @@ func Filtes(title string) (*Filters, error) {
 	}
 	var fl Filters
 	fl.Title = title
-	// fl.Title = strings.ToUpper(string(title[0])) + title[1:]
 	for rows.Next() {
 		var f Filter
 		err := rows.Scan(&f.Count, &f.Name, &f.Id)
@@ -37,7 +36,7 @@ func Filtes(title string) (*Filters, error) {
 
 func Types() (*Filters, error) {
 	rows, err := DB.Query(`
-	select count(a.id), at2.type_of  from  anime_types at2 
+	select count(a.id), at2.type_of, at2.id  from  anime_types at2 
 	join animes a on a.type_id = at2.id
 	group by at2.id 
 	order by  count(a.id) desc`)
@@ -45,10 +44,10 @@ func Types() (*Filters, error) {
 		return nil, err
 	}
 	var fl Filters
-	fl.Title = "Types"
+	fl.Title = "types"
 	for rows.Next() {
 		var f Filter
-		err := rows.Scan(&f.Count, &f.Name)
+		err := rows.Scan(&f.Count, &f.Name, &f.Id)
 		if err != nil {
 			return &fl, err
 		}
@@ -59,7 +58,7 @@ func Types() (*Filters, error) {
 
 func Seasons() (*Filters, error) {
 	rows, err := DB.Query(`
-	select count(a.id), s.season  from seasons s 
+	select count(a.id), s.season, s.id  from seasons s 
 	join animes a on s.id = a.season_id 
 	group by s.id 
 	order by s.value desc`)
@@ -67,10 +66,10 @@ func Seasons() (*Filters, error) {
 		return nil, err
 	}
 	var fl Filters
-	fl.Title = "Seasons"
+	fl.Title = "seasons"
 	for rows.Next() {
 		var f Filter
-		err := rows.Scan(&f.Count, &f.Name)
+		err := rows.Scan(&f.Count, &f.Name, &f.Id)
 		if err != nil {
 			return &fl, err
 		}
