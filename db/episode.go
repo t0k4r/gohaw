@@ -1,6 +1,10 @@
 package db
 
-import "database/sql"
+import (
+	"database/sql"
+
+	"github.com/t0k4r/qb"
+)
 
 type Episode struct {
 	Id       int
@@ -10,17 +14,19 @@ type Episode struct {
 	Stream   *string
 }
 
-func (Episode) scan(rows *sql.Rows) (dbObject, error) {
-	var e Episode
-	err := rows.Scan(&e.Id, &e.Index, &e.Title, &e.AltTitle, &e.Stream)
-	return e, err
+func SelectEpisode() *qb.QSelect {
+	return qb.
+		Select("episodes e").
+		Cols("e.id", "e.index_of", "e.title", "e.alt_title", "es.stream").
+		LJoin("episode_streams es", "es.episode_id = e.id")
+}
+
+func (e Episode) Scan(rows *sql.Rows) (qb.Selectable, error) {
+	return e, rows.Scan(&e.Id, &e.Index, &e.Title, &e.AltTitle, &e.Stream)
+
 }
 
 func EpisodesFromAnimeId(animeId int) ([]Episode, error) {
-	episodes, err := query[Episode](`
-	select e.id, e.index_of, e.title, e.alt_title, es.stream from episodes e
-	left join episode_streams es on es.episode_id = e.id
-	where e.anime_id = $1
-	order by e.index_of`, animeId)
-	return episodes, err
+	return qb.Query[Episode](
+		SelectEpisode().Where("e.anime_id = $1").OrderBy("e.index_of"), DB, animeId)
 }

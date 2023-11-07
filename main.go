@@ -22,7 +22,7 @@ func init() {
 	if err != nil {
 		log.Println(err)
 	}
-	db.DB, err = sql.Open("postgres", os.Getenv("PG_CONN"))
+	db.DB, err = sql.Open("postgres", os.Getenv("MALSQL_DB"))
 	if err != nil {
 		log.Panic(err)
 	}
@@ -36,7 +36,6 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
-
 	r.Get("/", pages.Home)
 	r.Handle("/*", http.FileServer(http.FS(static.Files)))
 	r.Get("/types", pages.Filters("types"))
