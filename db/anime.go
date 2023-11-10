@@ -32,35 +32,26 @@ func (a Anime) Scan(rows *sql.Rows) (qb.Selectable, error) {
 }
 
 func AnimeFromId(id int) (*Anime, error) {
-	return firstOrNil(
-		qb.Query[Anime](
-			SelectAnime().Where(" a.id = $1"), DB, id))
+	return QueryFirst[Anime](
+		SelectAnime().Where(" a.id = $1"), id)
 }
 
 func AnimesNow(limit int) ([]Anime, error) {
-	return qb.Query[Anime](
-		SelectAnime().Where("s.value < $1").OrderBy("s.value desc").Limit("$2"), DB, time.Now(), limit)
+	return Query[Anime](
+		SelectAnime().Where("s.value < $1").OrderBy("s.value desc").Limit("$2"), time.Now(), limit)
 }
 
 func AnimesFromInfoId(infoId int) ([]Anime, error) {
-	return qb.Query[Anime](
-		SelectAnime().LJoin("anime_infos ai", "ai.anime_id = a.id").Where("ai.info_id = $1"), DB, infoId)
+	return Query[Anime](
+		SelectAnime().LJoin("anime_infos ai", "ai.anime_id = a.id").Where("ai.info_id = $1"), infoId)
 }
 
 func AnimesFromTypeId(typeId int) ([]Anime, error) {
-	return qb.Query[Anime](
-		SelectAnime().Where("a.type_id = $1"), DB, typeId)
+	return Query[Anime](
+		SelectAnime().Where("a.type_id = $1"), typeId)
 }
 
 func AnimesFromSeasonId(seasonId int) ([]Anime, error) {
-	return qb.Query[Anime](
-		SelectAnime().Where("a.season_id = $1"), DB, seasonId)
-}
-
-func firstOrNil[T any](items []T, err error) (*T, error) {
-	var i *T = nil
-	if len(items) > 0 {
-		i = &items[0]
-	}
-	return i, err
+	return Query[Anime](
+		SelectAnime().Where("a.season_id = $1"), seasonId)
 }

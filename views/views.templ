@@ -1,0 +1,45 @@
+package views
+
+func str(s *string) string {
+	if s != nil {
+		return *s
+	}
+	return ""
+}
+
+templ Nav() {
+	<div class="Nav">
+		<h1 hx-get="/" hx-target="main" hx-push-url="/">gohaw</h1>
+		<form action="">
+			<input type="search" name="" id="" placeholder="search..."/>
+			<input type="submit" value="q"/>
+		</form>
+		<ul>
+			<li hx-get="/types" hx-target="main" hx-push-url="true">types</li>
+			<li hx-get="/themes" hx-target="main" hx-push-url="true">themes</li>
+			<li hx-get="/genres" hx-target="main" hx-push-url="true">genres</li>
+			<li hx-get="/studios" hx-target="main" hx-push-url="true">studios</li>
+			<li hx-get="/seasons" hx-target="main" hx-push-url="true">seasons</li>
+		</ul>
+	</div>
+}
+
+templ Page(title string, main templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<link rel="stylesheet" href="/style.css"/>
+			<script src="https://unpkg.com/htmx.org@1.9.8"></script>
+			<meta charset="UTF-8"/>
+			<title>{ title }</title>
+		</head>
+		<body>
+			<nav>
+				@Nav()
+			</nav>
+			<main>
+				@main
+			</main>
+		</body>
+	</html>
+}

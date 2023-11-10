@@ -1,17 +1,14 @@
 package pages
 
 import (
+	"fmt"
 	"gohaw/db"
+	"gohaw/views"
 	"net/http"
 	"strconv"
 
 	"github.com/go-chi/chi/v5"
 )
-
-type pageAnime struct {
-	*db.Anime
-	Episodes []db.Episode
-}
 
 func Anime(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
@@ -24,15 +21,13 @@ func Anime(w http.ResponseWriter, r *http.Request) {
 		fail(w, err)
 		return
 	}
-	episodes, err := db.EpisodesFromAnimeId(id)
-	if err != nil {
-		fail(w, err)
-		return
+	if anime != nil {
+		if isHx(r) {
+			render(w, views.Anime(anime))
+
+		} else {
+			render(w, views.Page(fmt.Sprintf("gohaw - %v", anime.Title), views.Anime(anime)))
+		}
 	}
-	page := pageAnime{Anime: anime, Episodes: episodes}
-	if isHx(r) {
-		render(w, "Anime", page)
-	} else {
-		render(w, "pageAnime.go.html", page)
-	}
+
 }

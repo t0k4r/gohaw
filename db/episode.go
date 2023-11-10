@@ -27,6 +27,6 @@ func (e Episode) Scan(rows *sql.Rows) (qb.Selectable, error) {
 }
 
 func EpisodesFromAnimeId(animeId int) ([]Episode, error) {
-	return qb.Query[Episode](
-		SelectEpisode().Where("e.anime_id = $1").OrderBy("e.index_of"), DB, animeId)
+	return Query[Episode](
+		SelectEpisode().Where("e.anime_id = $1").OrderBy("e.index_of"), animeId)
 }

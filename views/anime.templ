@@ -1,0 +1,19 @@
+package views
+
+import "gohaw/db"
+
+templ Anime(anime *db.Anime) {
+	<div class="Anime">
+		<div>
+			<img src={ str(anime.Cover) } alt={ anime.Title }/>
+		</div>
+		<div>
+			<a href={ templ.SafeURL(anime.MalUrl) }>
+				<h1>{ anime.Title } </h1>
+			</a>
+			<p>
+				{ anime.Description }
+			</p>
+		</div>
+	</div>
+}

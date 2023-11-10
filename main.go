@@ -5,8 +5,6 @@ import (
 	"gohaw/db"
 	"gohaw/pages"
 	"gohaw/static"
-	"gohaw/templates"
-	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -26,28 +24,15 @@ func init() {
 	if err != nil {
 		log.Panic(err)
 	}
-	pages.Templ, err = template.ParseFS(templates.Files, "*.go.html")
-	if err != nil {
-		log.Panic(err)
-	}
 }
 
 func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
+
 	r.Get("/", pages.Home)
-	r.Handle("/*", http.FileServer(http.FS(static.Files)))
-	r.Get("/types", pages.Filters("types"))
-	r.Get("/types/{id}", pages.Filter("types"))
-	r.Get("/themes", pages.Filters("themes"))
-	r.Get("/themes/{id}", pages.Filter("themes"))
-	r.Get("/genres", pages.Filters("genres"))
-	r.Get("/genres/{id}", pages.Filter("genres"))
-	r.Get("/studios", pages.Filters("studios"))
-	r.Get("/studios/{id}", pages.Filter("studios"))
-	r.Get("/seasons", pages.Filters("seasons"))
-	r.Get("/seasons/{id}", pages.Filter("seasons"))
+	r.Handle("/*", static.Handler())
 	r.Get("/anime/{id}", pages.Anime)
 
 	port := ":3000"

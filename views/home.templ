@@ -1,0 +1,25 @@
+package views
+
+import (
+	"gohaw/db"
+	"fmt"
+)
+
+templ AnimeThumbnail(anime db.Anime) {
+	<div class="AnimeThumbnail" hx-get={ fmt.Sprintf("/anime/%v", anime.Id) } hx-target="main" hx-push-url="true">
+		<img src={ str(anime.Cover) } alt={ anime.Title }/>
+		<p>{ anime.Title } </p>
+	</div>
+}
+
+templ Home(animes []db.Anime) {
+	<div class="Home">
+		<ul>
+			for _, anime := range animes {
+				<li>
+					@AnimeThumbnail(anime)
+				</li>
+			}
+		</ul>
+	</div>
+}

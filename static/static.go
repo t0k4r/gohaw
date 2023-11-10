@@ -1,8 +1,13 @@
 package static
 
-import "embed"
+import (
+	"embed"
+	"net/http"
+)
 
 //go:embed *.css
-//go:embed *.html
-//go:embed *.ico
-var Files embed.FS
+var files embed.FS
+
+func Handler() http.Handler {
+	return http.FileServer(http.FS(files))
+}
