@@ -2,10 +2,38 @@ package views
 
 import "gohaw/db"
 
-templ Anime(anime *db.Anime) {
+templ Anime(anime *db.Anime, infos []db.OrderedInfo) {
 	<div class="Anime">
 		<div>
 			<img src={ str(anime.Cover) } alt={ anime.Title }/>
+			<ul>
+				if anime.TypeOf != nil {
+					<li>
+						<h3>Type: </h3>
+						<p>{ str(anime.TypeOf) }</p>
+					</li>
+				}
+				if anime.Season != nil {
+					<li>
+						<h3>Season: </h3>
+						<p>{ str(anime.Season) }</p>
+					</li>
+				}
+				for _, info := range infos {
+					<li>
+						<h3>{ info.TypeOf }: </h3>
+						<ul>
+							for _, value := range info.Values {
+								<li>
+									<p>
+										{ value.Value }
+									</p>
+								</li>
+							}
+						</ul>
+					</li>
+				}
+			</ul>
 		</div>
 		<div>
 			<a href={ templ.SafeURL(anime.MalUrl) }>
