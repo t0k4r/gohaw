@@ -55,3 +55,20 @@ func AnimesFromSeasonId(seasonId int) ([]Anime, error) {
 	return Query[Anime](
 		SelectAnime().Where("a.season_id = $1"), seasonId)
 }
+
+type FatAnime struct {
+	*Anime
+	Infos []OrderedInfo
+}
+
+func FatAnimeFromId(id int) (*FatAnime, error) {
+	anime, err := AnimeFromId(id)
+	if err != nil {
+		return nil, err
+	}
+	infos, err := InfosFromAnimeId(id)
+	if err != nil {
+		return nil, err
+	}
+	return &FatAnime{Anime: anime, Infos: infos}, nil
+}

@@ -16,22 +16,16 @@ func Anime(w http.ResponseWriter, r *http.Request) {
 		fail(w, err)
 		return
 	}
-	anime, err := db.AnimeFromId(id)
-	if err != nil {
-		fail(w, err)
-		return
-	}
-	infos, err := db.InfosFromAnimeId(anime.Id)
+	anime, err := db.FatAnimeFromId(id)
 	if err != nil {
 		fail(w, err)
 		return
 	}
 	if anime != nil {
 		if isHx(r) {
-			render(w, views.Anime(anime, infos))
-
+			render(w, views.Anime(anime))
 		} else {
-			render(w, views.Page(fmt.Sprintf("gohaw - %v", anime.Title), views.Anime(anime, infos)))
+			render(w, views.Page(fmt.Sprintf("gohaw - %v", anime.Title), views.Anime(anime)))
 		}
 	}
 

@@ -5,10 +5,12 @@ import (
 	"gohaw/db"
 	"gohaw/pages"
 	"gohaw/static"
+	"gohaw/views"
 	"log"
 	"net/http"
 	"os"
 
+	"github.com/a-h/templ"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/joho/godotenv"
@@ -34,6 +36,8 @@ func main() {
 	r.Get("/", pages.Home)
 	r.Handle("/*", static.Handler())
 	r.Get("/anime/{id}", pages.Anime)
+
+	templ.NewCSSMiddleware(r, views.Css()...)
 
 	port := ":3000"
 	log.Printf("Running on %v\n", port)

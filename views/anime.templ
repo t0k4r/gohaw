@@ -2,38 +2,18 @@ package views
 
 import "gohaw/db"
 
-templ Anime(anime *db.Anime, infos []db.OrderedInfo) {
+var darkest = "#1F1F1F"
+var darker = "#323232"
+var dark = "#404040"
+
+css anime() {
+}
+
+templ Anime(anime *db.FatAnime) {
 	<div class="Anime">
 		<div>
 			<img src={ str(anime.Cover) } alt={ anime.Title }/>
-			<ul>
-				if anime.TypeOf != nil {
-					<li>
-						<h3>Type: </h3>
-						<p>{ str(anime.TypeOf) }</p>
-					</li>
-				}
-				if anime.Season != nil {
-					<li>
-						<h3>Season: </h3>
-						<p>{ str(anime.Season) }</p>
-					</li>
-				}
-				for _, info := range infos {
-					<li>
-						<h3>{ info.TypeOf }: </h3>
-						<ul>
-							for _, value := range info.Values {
-								<li>
-									<p>
-										{ value.Value }
-									</p>
-								</li>
-							}
-						</ul>
-					</li>
-				}
-			</ul>
+			@Infos(anime)
 		</div>
 		<div>
 			<a href={ templ.SafeURL(anime.MalUrl) }>
@@ -44,4 +24,59 @@ templ Anime(anime *db.Anime, infos []db.OrderedInfo) {
 			</p>
 		</div>
 	</div>
+}
+
+css infosUl() {
+	color: white;
+	background-color: { darkest };
+	border-radius: 0.5em;
+	list-style: none;
+	padding: 0.5em;
+	display: flex;
+	flex-direction: column;
+	width: 20em;
+}
+
+css infosLi() {
+	list-style: none;
+	padding: 0;
+}
+
+templ Infos(anime *db.FatAnime) {
+	<ul class={ infosUl() }>
+		if anime.TypeOf != nil {
+			<li>
+				<h3>type: </h3>
+				<ul class={ infosLi() }>
+					<li>
+						<p>{ str(anime.TypeOf) }</p>
+					</li>
+				</ul>
+			</li>
+		}
+		if anime.Season != nil {
+			<li>
+				<h3>season: </h3>
+				<ul class={ infosLi() }>
+					<li>
+						<p>{ str(anime.Season) }</p>
+					</li>
+				</ul>
+			</li>
+		}
+		for _, info := range anime.Infos {
+			<li>
+				<h3>{ info.TypeOf }: </h3>
+				<ul class={ infosLi() }>
+					for _, value := range info.Values {
+						<li>
+							<p>
+								{ value.Value }
+							</p>
+						</li>
+					}
+				</ul>
+			</li>
+		}
+	</ul>
 }

@@ -1,5 +1,9 @@
 package views
 
+func Css() []templ.CSSClass {
+	return nil
+}
+
 func str(s *string) string {
 	if s != nil {
 		return *s
@@ -7,8 +11,14 @@ func str(s *string) string {
 	return ""
 }
 
+css nav() {
+	display: flex;
+	background-color: { darkest };
+	color: white;
+}
+
 templ Nav() {
-	<div class="Nav">
+	<div class={ nav() }>
 		<h1 hx-get="/" hx-target="main" hx-push-url="/">gohaw</h1>
 		<form action="">
 			<input type="search" name="" id="" placeholder="search..."/>
